@@ -25,14 +25,15 @@
         android:layout_height="wrap_content"
         android:text="Click"
         android:id="@+id/click"
+        android:onClick="click"
         android:layout_centerInParent="true"
 
         />
     <ImageView android:id="@+id/imageView1"
-        android:layout_height="wrap_content"
+        android:layout_height="200sp"
         android:src="@drawable/img"
         android:layout_below="@id/click"
         android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content">
+        android:layout_width="212sp">
     </ImageView>
 </RelativeLayout>

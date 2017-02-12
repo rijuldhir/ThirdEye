@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         imageView = (ImageView)this.findViewById(R.id.imageView1);
-        Button photoButton = (Button) this.findViewById(R.id.click);
+        /*Button photoButton = (Button) this.findViewById(R.id.click);
         photoButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -31,19 +31,19 @@ public class MainActivity extends AppCompatActivity {
                 if (cameraIntent.resolveActivity(getPackageManager()) != null) {
                 startActivityForResult(cameraIntent, CAMERA_REQUEST);}
             }
-        });
+        });*/
 
     }
 
 
 
-    /*void click(View v){
+    void  click(View v){
      Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            startActivityForResult(takePictureIntent, CAMERA_REQUEST);
         }
 
-    }*/
+    }
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
