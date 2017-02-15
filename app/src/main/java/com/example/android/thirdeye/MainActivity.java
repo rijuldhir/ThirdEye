@@ -3,14 +3,19 @@ package com.example.android.thirdeye;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import static android.R.attr.data;
+import static android.os.Build.VERSION_CODES.N;
 
 public class MainActivity extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -34,7 +39,18 @@ public class MainActivity extends AppCompatActivity {
         });*/
 
     }
+    void  search(View v){
+        EditText g = (EditText) findViewById(R.id.newText);
+        String x = g.getText().toString();
+        if (x.matches("")) {
+            Toast.makeText(this, "You did not enter anything", Toast.LENGTH_SHORT).show();
+            return;
+        }
+            Uri uri = Uri.parse("http://www.google.com/#q=" + x);
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
 
+    }
 
 
     void  click(View v){
