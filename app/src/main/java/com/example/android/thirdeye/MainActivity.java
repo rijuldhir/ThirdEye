@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,14 +15,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Locale;
+
 import static android.R.attr.data;
+import static android.R.attr.x;
 import static android.os.Build.VERSION_CODES.N;
 
 public class MainActivity extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int CAMERA_REQUEST = 1888;
     private ImageView imageView;
-
+    TextToSpeech t1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +42,34 @@ public class MainActivity extends AppCompatActivity {
             }
         });*/
 
+        t1=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != TextToSpeech.ERROR) {
+                    Locale locale = new Locale("en", "IN");
+                    int availability = t1.isLanguageAvailable(locale);
+                    switch (availability) {
+                        case TextToSpeech.LANG_NOT_SUPPORTED: {
+                            t1.setLanguage(Locale.UK);
+                            break;
+                        }
+                        case TextToSpeech.LANG_MISSING_DATA: {
+                            t1.setLanguage(Locale.UK);
+                            break;
+                        }
+                        case TextToSpeech.LANG_AVAILABLE: {
+                            t1.setLanguage(Locale.UK);
+                            break;
+                        }
+                        case TextToSpeech.LANG_COUNTRY_AVAILABLE:
+                        case TextToSpeech.LANG_COUNTRY_VAR_AVAILABLE: {
+                            t1.setLanguage(locale);
+                            break;
+                        }
+                    }
+                }
+            }
+        });
     }
     void  search(View v){
         EditText g = (EditText) findViewById(R.id.newText);
@@ -49,9 +81,26 @@ public class MainActivity extends AppCompatActivity {
             Uri uri = Uri.parse("http://www.google.com/#q=" + x);
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             startActivity(intent);
-
     }
-
+    void  voice(View v){
+        EditText g = (EditText) findViewById(R.id.newText);
+        String x = g.getText().toString();
+        if (x.matches("")) {
+            Toast.makeText(this, "You did not enter anything", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Toast.makeText(getApplicationContext(), x,Toast.LENGTH_SHORT).show();
+        t1.speak(x, TextToSpeech.QUEUE_FLUSH, null);
+        //t1.speak(x.toCharArray(),TextToSpeech.QUEUE_FLUSH, null,null);
+    }
+    @Override
+    public void onPause(){
+        if(t1 !=null){
+            t1.stop();
+            t1.shutdown();
+        }
+        super.onPause();
+    }
 
     void  click(View v){
      Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
