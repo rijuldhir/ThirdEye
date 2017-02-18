@@ -22,7 +22,6 @@ import static android.R.attr.x;
 import static android.os.Build.VERSION_CODES.N;
 
 public class MainActivity extends AppCompatActivity {
-    static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int CAMERA_REQUEST = 1888;
     private ImageView imageView;
     TextToSpeech t1;
