@@ -3,6 +3,7 @@ package com.example.android.thirdeye;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.speech.tts.TextToSpeech;
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             startActivity(intent);
     }
-    void  voice(View v){
+    public void  voice(View v){
         EditText g = (EditText) findViewById(R.id.newText);
         String x = g.getText().toString();
         if (x.matches("")) {
@@ -91,6 +92,9 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), x,Toast.LENGTH_SHORT).show();
         t1.speak(x, TextToSpeech.QUEUE_FLUSH, null);
         //t1.speak(x.toCharArray(),TextToSpeech.QUEUE_FLUSH, null,null);
+        /*MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.audiocheck);
+        Toast.makeText(getApplicationContext(), "Playing sound",Toast.LENGTH_SHORT).show();
+                mediaPlayer.start();*/
     }
     @Override
     public void onPause(){
