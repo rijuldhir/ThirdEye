@@ -1,14 +1,21 @@
 package com.example.android.thirdeye;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.graphics.Palette;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,8 +23,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
+import static android.R.attr.bitmap;
 import static android.R.attr.data;
 import static android.R.attr.x;
 import static android.os.Build.VERSION_CODES.N;
@@ -26,11 +41,13 @@ public class MainActivity extends AppCompatActivity {
     private static final int CAMERA_REQUEST = 1888;
     private ImageView imageView;
     TextToSpeech t1;
+    ImageView color;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         imageView = (ImageView)this.findViewById(R.id.imageView1);
+        color = (ImageView)this.findViewById(R.id.colored);
         /*Button photoButton = (Button) this.findViewById(R.id.click);
         photoButton.setOnClickListener(new View.OnClickListener() {
 
@@ -41,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(cameraIntent, CAMERA_REQUEST);}
             }
         });*/
-
+        color.setVisibility(View.INVISIBLE);
         t1=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
@@ -97,12 +114,12 @@ public class MainActivity extends AppCompatActivity {
                 mediaPlayer.start();*/
     }
     @Override
-    public void onPause(){
+    public void onDestroy(){
         if(t1 !=null){
             t1.stop();
             t1.shutdown();
         }
-        super.onPause();
+        super.onDestroy();
     }
 
     void  click(View v){
@@ -118,6 +135,41 @@ public class MainActivity extends AppCompatActivity {
             imageView.setImageBitmap(photo);
         }
     }
+
+    public void getColor(View view){
+            BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable();
+            Bitmap bitmap = drawable.getBitmap();
+            //Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(),imageView.getId());
+            if(bitmap!=null) {
+                List<Palette.Swatch> swatchesTemp = Palette.from(bitmap).generate().getSwatches();
+                List<Palette.Swatch> swatches = new ArrayList<Palette.Swatch>(swatchesTemp);
+                Collections.sort(swatches, new Comparator<Palette.Swatch>() {
+                    @Override
+                    public int compare(Palette.Swatch swatch1, Palette.Swatch swatch2) {
+                        return swatch2.getPopulation() - swatch1.getPopulation();
+                    }
+                });
+
+                if (swatches.size() > 0)
+                {
+                    int argb = swatches.get(0).getRgb();
+                    //int r = (argb>>16)&0xFF;
+                    //int g = (argb>>8)&0xFF;
+                    //int b = (argb>>0)&0xFF;
+                    String hex = "#"+Integer.toHexString(argb).substring(2);
+                    color.setVisibility(View.VISIBLE);
+                    color.setBackgroundColor(argb);
+                    Toast.makeText(getApplicationContext(),hex, Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    color.setVisibility(View.INVISIBLE);
+
+                }
+            }
+
+    }
+
+
 
 
 }
