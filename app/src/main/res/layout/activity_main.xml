@@ -7,7 +7,7 @@
     <RelativeLayout
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -21,7 +21,7 @@
         android:id="@+id/snapshot"
         android:paddingTop="30dp"
         android:layout_centerHorizontal="true"
-        android:textSize="26dp"
+        android:textSize="26sp"
         />
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,8 +35,6 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/snapshot"
-            android:layout_centerHorizontal="true"
             android:id="@+id/newText"
             android:hint="Add Text here"
             android:layout_weight="7"
@@ -45,6 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            tools:contentDescription="Voice button"
             android:src="@drawable/ic_play_arrow"
             android:onClick="voice"
             />
@@ -56,7 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/Lay1"
         android:id="@+id/search"
-        android:text="search"
+        android:text="search Net"
         android:paddingTop="20dp"
         android:onClick="search"
         />
@@ -70,39 +69,35 @@
         android:onClick="getColor"
         />
     <ImageButton
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_camera"
         android:text="Click"
+        tools:contentDescription="Camera button"
         android:id="@+id/clicked"
         android:onClick="click"
         android:layout_below="@+id/color"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-
-        android:paddingBottom="16dp"
+        android:layout_centerInParent="true"
         />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/clicked"
         android:paddingTop="16dp"
-        android:orientation="horizontal"
-        >
-
+        android:orientation="horizontal">
 
     <ImageView android:id="@+id/imageView1"
         android:layout_height="150dp"
         android:src="@drawable/img"
         android:layout_width="212dp"
         android:maxHeight="180dp"
-        android:layout_centerHorizontal="true"
          />
     <ImageView
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
         android:id="@+id/colored"
         />
     </LinearLayout>

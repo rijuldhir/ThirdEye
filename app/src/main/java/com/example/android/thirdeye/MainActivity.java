@@ -36,6 +36,7 @@ import static android.R.attr.bitmap;
 import static android.R.attr.data;
 import static android.R.attr.x;
 import static android.os.Build.VERSION_CODES.N;
+import static com.example.android.thirdeye.R.id.colored;
 
 public class MainActivity extends AppCompatActivity {
     private static final int CAMERA_REQUEST = 1888;
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         imageView = (ImageView)this.findViewById(R.id.imageView1);
-        color = (ImageView)this.findViewById(R.id.colored);
+        color = (ImageView)this.findViewById(colored);
         /*Button photoButton = (Button) this.findViewById(R.id.click);
         photoButton.setOnClickListener(new View.OnClickListener() {
 
@@ -153,13 +154,19 @@ public class MainActivity extends AppCompatActivity {
                 if (swatches.size() > 0)
                 {
                     int argb = swatches.get(0).getRgb();
-                    //int r = (argb>>16)&0xFF;
-                    //int g = (argb>>8)&0xFF;
-                    //int b = (argb>>0)&0xFF;
+                    int r = (argb>>16)&0xFF;
+                    int g = (argb>>8)&0xFF;
+                    int b = (argb>>0)&0xFF;
                     String hex = "#"+Integer.toHexString(argb).substring(2);
+                    ColorUtils col = new ColorUtils();
+                    //String colored = col.getColorNameFromHex(Integer.parseInt(hex));
+                    String colored = col.getColorNameFromRgb(r,g,b);
+                    EditText edit = (EditText) findViewById(R.id.newText);
+                    edit.setText(colored);
+                    voice(edit);
                     color.setVisibility(View.VISIBLE);
                     color.setBackgroundColor(argb);
-                    Toast.makeText(getApplicationContext(),hex, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(),colored, Toast.LENGTH_SHORT).show();
                 }
                 else{
                     color.setVisibility(View.INVISIBLE);
