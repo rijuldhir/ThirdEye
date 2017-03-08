@@ -160,8 +160,10 @@ public class MainActivity extends AppCompatActivity {
                     int b = (argb>>0)&0xFF;
                     String hex = "#"+Integer.toHexString(argb).substring(2);
                     ColorUtils col = new ColorUtils();
+
                     //String colored = col.getColorNameFromHex(Integer.parseInt(hex));
                     String colored = col.getColorNameFromRgb(r,g,b);
+
                     EditText edit = (EditText) findViewById(R.id.newText);
                     edit.setText(colored);
                     voice(edit);

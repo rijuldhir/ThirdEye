@@ -183,6 +183,12 @@ public class ColorUtils {
         }
     }
 
+    public String getColorNameFromHex(int hexColor) {
+        int r = (hexColor & 0xFF0000) >> 16;
+        int g = (hexColor & 0xFF00) >> 8;
+        int b = (hexColor & 0xFF);
+        return getColorNameFromRgb(r, g, b);
+    }
 
 
     public class ColorName {

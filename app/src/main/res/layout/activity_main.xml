@@ -15,21 +15,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.android.thirdeye.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/snapshot"
-        android:id="@+id/snapshot"
-        android:paddingTop="30dp"
-        android:layout_centerHorizontal="true"
-        android:textSize="26sp"
-        />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:id="@+id/Lay1"
-        android:layout_below="@id/snapshot"
         android:paddingBottom="16dp"
         >
 
@@ -75,24 +66,51 @@
         android:layout_marginTop="16dp"
         android:onClick="getColor"
         />
-    <ImageButton
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_camera_w"
-        android:text="Click"
+        android:id="@+id/layout1"
+        android:layout_below="@id/color"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_camera_w"
+            android:layout_weight="2"
+            android:text="Click"
+            tools:contentDescription="Camera button"
+            android:id="@+id/clicked"
+            android:onClick="click"
+            android:padding="5dp"
+            android:background="#904832"
+            android:layout_marginRight="32dp"
+            android:layout_below="@+id/color"
+            android:layout_centerInParent="true"
+            />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#904832"
+            android:text="Detect"
+            />
+
+    </LinearLayout>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout1"
+        android:id="@+id/ocr"
+        android:text="ocR"
         android:layout_marginTop="16dp"
-        tools:contentDescription="Camera button"
-        android:id="@+id/clicked"
-        android:onClick="click"
-        android:padding="5dp"
         android:background="#904832"
-        android:layout_below="@+id/color"
-        android:layout_centerInParent="true"
         />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/clicked"
+        android:layout_below="@id/ocr"
         android:paddingTop="16dp"
         android:orientation="horizontal">
 
