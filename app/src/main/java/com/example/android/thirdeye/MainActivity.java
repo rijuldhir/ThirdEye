@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         imageView = (ImageView)this.findViewById(R.id.imageView1);
+        EditText g = (EditText) findViewById(R.id.newText);
         color = (ImageView)this.findViewById(colored);
         /*Button photoButton = (Button) this.findViewById(R.id.click);
         photoButton.setOnClickListener(new View.OnClickListener() {

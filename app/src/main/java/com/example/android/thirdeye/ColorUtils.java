@@ -185,7 +185,6 @@ public class ColorUtils {
 
 
 
-
     public class ColorName {
         public int r, g, b;
         public String name;
